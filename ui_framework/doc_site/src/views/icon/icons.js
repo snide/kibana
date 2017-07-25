@@ -15,5 +15,37 @@ export default () => (
     &nbsp;
 
     <KuiIcon type="user" />
+
+    &nbsp;
+
+    <KuiIcon type="help" />
+
+    &nbsp;
+
+    <KuiIcon type="cross" />
+
+    &nbsp;
+
+    <KuiIcon type="grid" />
+
+    &nbsp;
+
+    <KuiIcon type="arrowTop" />
+
+    &nbsp;
+
+    <KuiIcon type="arrowRight" />
+
+    &nbsp;
+
+    <KuiIcon type="arrowBottom" />
+
+    &nbsp;
+
+    <KuiIcon type="arrowLeft" />
+
+    &nbsp;
+
+    <KuiIcon type="console" />
   </div>
 );

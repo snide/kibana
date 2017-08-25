@@ -23,6 +23,7 @@ export {
 } from './flex';
 
 export {
+  KuiCheckbox,
   KuiCheckboxGroup,
   KuiFieldNumber,
   KuiFieldPassword,
@@ -108,8 +109,10 @@ export {
   KuiTableHeader,
   KuiTableHeaderButton,
   KuiTableHeaderCell,
+  KuiTableHeaderCellCheckbox,
   KuiTableRow,
   KuiTableRowCell,
+  KuiTableRowCellCheckbox,
 } from './table';
 
 export {

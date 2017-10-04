@@ -23,26 +23,22 @@ export class OptionsTab extends Component {
   render() {
     return (
       <div>
-
-        <div className="sidebar-item">
-          <div className="vis-editor-agg-header">
-            <KuiFieldGroup>
-              <KuiFieldGroupSection>
-                <label>
-                  <input
-                    className="kuiCheckBox"
-                    type="checkbox"
-                    checked={this.props.scope.vis.params.updateFiltersOnChange}
-                    onChange={this.handleUpdateFiltersChange}
-                    data-test-subj="inputControlEditorUpdateFiltersOnChangeCheckbox"
-                  />
-                  Update kibana filters on each change
-                </label>
-              </KuiFieldGroupSection>
-            </KuiFieldGroup>
-          </div>
+        <div className="vis-editor-agg-header">
+          <KuiFieldGroup>
+            <KuiFieldGroupSection>
+              <label>
+                <input
+                  className="kuiCheckBox"
+                  type="checkbox"
+                  checked={this.props.scope.vis.params.updateFiltersOnChange}
+                  onChange={this.handleUpdateFiltersChange}
+                  data-test-subj="inputControlEditorUpdateFiltersOnChangeCheckbox"
+                />
+                Update kibana filters on each change
+              </label>
+            </KuiFieldGroupSection>
+          </KuiFieldGroup>
         </div>
-
       </div>
     );
   }

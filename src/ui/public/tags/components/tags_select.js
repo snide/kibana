@@ -11,6 +11,7 @@ import {
   EuiFilterSelectItem,
   EuiIcon,
   EuiLink,
+  EuiFormHelpText,
 } from '@elastic/eui';
 
 export class TagsSelect extends Component {
@@ -149,6 +150,9 @@ export class TagsSelect extends Component {
             value={this.state.search}
             onChange={this.fetchTags}
           />
+          <EuiFormHelpText style={{ paddingBottom: 0 }}>
+            Manage and add tags over in <a href="/app/management/kibana/tags">tag management</a>
+          </EuiFormHelpText>
         </EuiPopoverTitle>
         {this.renderPopoverBody()}
       </EuiPopover>

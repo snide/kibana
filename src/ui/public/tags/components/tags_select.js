@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 import {
-  EuiFilterButton,
   EuiPopover,
   EuiPopoverTitle,
   EuiFieldSearch,
@@ -11,6 +10,7 @@ import {
   EuiSpacer,
   EuiFilterSelectItem,
   EuiIcon,
+  EuiLink,
 } from '@elastic/eui';
 
 export class TagsSelect extends Component {
@@ -74,14 +74,11 @@ export class TagsSelect extends Component {
 
   renderButton() {
     return (
-      <EuiFilterButton
-        iconType="arrowDown"
+      <EuiLink
         onClick={this.onBtnClick}
-        isSelected={this.state.show}
-        hasActiveFilters={true}
       >
-        Add Tags
-      </EuiFilterButton>
+        Attach tags
+      </EuiLink>
     );
   }
 

@@ -12,6 +12,7 @@ import {
   EuiPopover,
   EuiIcon,
   EuiSpacer,
+  EuiToolTip,
 } from '@elastic/eui';
 
 export const NUM_LONG_LINKS = 5;
@@ -48,7 +49,7 @@ export class RecentlyAccessed extends Component {
       dropdownLinks.push(
         (
           <li
-            style={{ marginBottom: 8 }}
+            style={{ lineHeight: '32px' }}
             key={this.props.recentlyAccessed[i].id}
             data-test-subj={`moreRecentlyAccessedItem${this.props.recentlyAccessed[i].id}`}
           >
@@ -110,7 +111,7 @@ export class RecentlyAccessed extends Component {
           <EuiText>
             <EuiIcon
               type="dot"
-              color="subdued"
+              color="#ddd"
             />
           </EuiText>
         </EuiFlexItem>
@@ -134,7 +135,9 @@ export class RecentlyAccessed extends Component {
             className="recentlyAccessedLongLink"
             href={recentlyAccessedItem.link}
           >
-            {recentlyAccessedItem.label}
+            <EuiToolTip content={recentlyAccessedItem.label} position="bottom">
+              <span>{recentlyAccessedItem.label}</span>
+            </EuiToolTip>
           </EuiLink>
         </EuiFlexItem>
       </React.Fragment>

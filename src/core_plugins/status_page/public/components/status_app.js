@@ -20,6 +20,7 @@
 import loadStatus from '../lib/load_status';
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   EuiLoadingSpinner,
   EuiText,
@@ -31,6 +32,11 @@ import StatusTable from './status_table';
 import ServerStatus from './server_status';
 
 class StatusApp extends Component {
+  static propTypes = {
+    buildNum: PropTypes.number.isRequired,
+    buildSha: PropTypes.string.isRequired,
+  };
+
   constructor() {
     super();
     this.state = {
@@ -52,6 +58,7 @@ class StatusApp extends Component {
   }
 
   render() {
+    const { buildNum, buildSha } = this.props;
     const { loading, data } = this.state;
 
     // If we're still loading, return early with a spinner
@@ -75,7 +82,11 @@ class StatusApp extends Component {
       <EuiText>
         <h2>Status Breakdown</h2>
       </EuiText>,
-      <StatusTable statuses={statuses} />
+      <StatusTable statuses={statuses} />,
+      <EuiSpacer />,
+      <EuiText textAlign="right">
+        Build { buildNum }, Commit SHA { buildSha }
+      </EuiText>
     ];
   }
 }

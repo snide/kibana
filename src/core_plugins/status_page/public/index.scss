@@ -1,0 +1,25 @@
+@import 'node_modules/@elastic/eui/src/global_styling/index.scss';
+
+[class*="status-table-row-"] {
+    border-left: 3px solid;
+}
+
+.status-table-row-default {
+  border-left-color: $euiTextColor;
+}
+
+.status-table-row-secondary {
+  border-left-color: $euiColorSecondary;
+}
+
+.status-table-row-danger {
+  border-left-color: $euiColorDanger;
+}
+
+.status-table-row-warning {
+  border-left-color: $euiColorWarning;
+}
+
+.status-table-row-subdued {
+  border-left-color: $euiColorMediumShade;
+}

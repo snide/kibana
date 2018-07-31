@@ -28,13 +28,13 @@ const ServerState = ({
   serverState
 }) => (
   <EuiText>
-    <h1>
+    <h2>
       {'Status: '}
       <EuiTextColor color={serverState.uiColor}>
         { serverState.title }
       </EuiTextColor>
       <span style={{ float: 'right' }}>{ name }</span>
-    </h1>
+    </h2>
   </EuiText>
 );
 

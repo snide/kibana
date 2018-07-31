@@ -33,6 +33,12 @@ class StatusTable extends Component {
     render: state => <EuiHealth color={state.uiColor}>{ state.message }</EuiHealth>
   }];
 
+  static getRowProps = ({ state }) => {
+    return {
+      className: `status-table-row-${state.uiColor}`
+    };
+  };
+
   render() {
     const { statuses } = this.props;
 
@@ -44,6 +50,7 @@ class StatusTable extends Component {
       <EuiBasicTable
         columns={StatusTable.columns}
         items={statuses}
+        rowProps={StatusTable.getRowProps}
       />
     );
   }

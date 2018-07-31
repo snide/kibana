@@ -21,14 +21,14 @@ import loadStatus from '../lib/load_status';
 
 import React, { Component } from 'react';
 import {
-  EuiFlexGroup,
-  EuiFlexItem,
   EuiLoadingSpinner,
-  EuiText
+  EuiText,
+  EuiSpacer
 } from '@elastic/eui';
 
-import MetricTile from './metric_tile';
+import MetricTiles from './metric_tiles';
 import StatusTable from './status_table';
+import ServerStatus from './server_status';
 
 class StatusApp extends Component {
   constructor() {
@@ -54,28 +54,28 @@ class StatusApp extends Component {
   render() {
     const { loading, data } = this.state;
 
+    // If we're still loading, return early with a spinner
     if (loading) {
       return (
         <EuiLoadingSpinner size="l" />
       );
     }
 
+    // Extract the items needed to render each component
+    const { metrics, statuses, serverState, name } = data;
+
     return [
-      <EuiFlexGroup wrap>
-        {
-          data.metrics.map(metric => (
-            <EuiFlexItem
-              style={{ minWidth: 'calc(33% - 24px)' }}
-            >
-              <MetricTile metric={metric} />
-            </EuiFlexItem>
-          ))
-        }
-      </EuiFlexGroup>,
+      <ServerStatus
+        name={name}
+        serverState={serverState}
+      />,
+      <EuiSpacer />,
+      <MetricTiles metrics={metrics} />,
+      <EuiSpacer />,
       <EuiText>
         <h2>Status Breakdown</h2>
       </EuiText>,
-      <StatusTable statuses={data.statuses} />
+      <StatusTable statuses={statuses} />
     ];
   }
 }

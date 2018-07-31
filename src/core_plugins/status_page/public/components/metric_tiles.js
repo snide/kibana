@@ -19,12 +19,31 @@
 
 import formatNumber from '../lib/format_number';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
+  EuiFlexGroup,
+  EuiFlexItem,
   EuiPanel,
   EuiText
 } from '@elastic/eui';
 
-class MetricTile extends Component {
+const MetricPropType = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.number),
+    PropTypes.number
+  ]).isRequired,
+  type: PropTypes.string  // optional
+});
+
+/*
+Displays a metric with the correct format.
+*/
+export class MetricTile extends Component {
+  static propTypes = {
+    metric: MetricPropType.isRequired
+  };
+
   formattedMetric() {
     const { value, type } = this.props.metric;
 
@@ -39,7 +58,7 @@ class MetricTile extends Component {
 
     return (
       <EuiPanel>
-        <EuiText style={{ textAlign: 'right' }}>
+        <EuiText textAlign="right">
           <h4 className="title">{ name }</h4>
           <h2 className="average">{ this.formattedMetric() }</h2>
         </EuiText>
@@ -48,4 +67,31 @@ class MetricTile extends Component {
   }
 }
 
-export default MetricTile;
+/*
+Wrapper component that simply maps each metric to MetricTile inside a FlexGroup
+*/
+const MetricTiles = ({
+  metrics
+}) => (
+  <EuiFlexGroup
+    style={{ width: '100%' }}
+    wrap
+  >
+    {
+      metrics.map(metric => (
+        <EuiFlexItem
+          key={metric.name}
+          style={{ minWidth: 'calc(33% - 24px)' }}
+        >
+          <MetricTile metric={metric} />
+        </EuiFlexItem>
+      ))
+    }
+  </EuiFlexGroup>
+);
+
+MetricTiles.propTypes = {
+  metrics: PropTypes.arrayOf(MetricPropType).isRequired
+};
+
+export default MetricTiles;

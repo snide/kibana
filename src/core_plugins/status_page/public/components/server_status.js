@@ -17,36 +17,25 @@
  * under the License.
  */
 
-import React, { Component } from 'react';
+import React from 'react';
 import {
-  EuiBasicTable,
-  EuiHealth,
+  EuiText,
+  EuiTextColor,
 } from '@elastic/eui';
 
-class StatusTable extends Component {
-  static columns = [{
-    field: 'id',
-    name: 'ID',
-  }, {
-    field: 'state',
-    name: 'Status',
-    render: state => <EuiHealth color={state.uiColor}>{ state.message }</EuiHealth>
-  }];
+const ServerState = ({
+  name,
+  serverState
+}) => (
+  <EuiText>
+    <h1>
+      {'Status: '}
+      <EuiTextColor color={serverState.uiColor}>
+        { serverState.title }
+      </EuiTextColor>
+      <span style={{ float: 'right' }}>{ name }</span>
+    </h1>
+  </EuiText>
+);
 
-  render() {
-    const { statuses } = this.props;
-
-    if (!statuses) {
-      return null;
-    }
-
-    return (
-      <EuiBasicTable
-        columns={StatusTable.columns}
-        items={statuses}
-      />
-    );
-  }
-}
-
-export default StatusTable;
+export default ServerState;

@@ -19,7 +19,7 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import MetricTile from './metric_tile';
+import { MetricTile } from './metric_tiles';
 
 const GENERAL_METRIC = {
   name: 'A metric',

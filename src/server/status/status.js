@@ -56,6 +56,7 @@ export default class Status extends EventEmitter {
     return {
       id: this.id,
       state: {
+        id: this.state,
         message: this.message,
         uiColor: states.get(this.state).uiColor,
       },

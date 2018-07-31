@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`byte metric 1`] = `
+<EuiPanel
+  grow={true}
+  hasShadow={false}
+  paddingSize="m"
+>
+  <EuiText
+    grow={true}
+    style={
+      Object {
+        "textAlign": "right",
+      }
+    }
+  >
+    <h4
+      className="title"
+    >
+      Heap Total
+    </h4>
+    <h2
+      className="average"
+    >
+      1.50 GB
+    </h2>
+  </EuiText>
+</EuiPanel>
+`;
+
+exports[`float metric 1`] = `
+<EuiPanel
+  grow={true}
+  hasShadow={false}
+  paddingSize="m"
+>
+  <EuiText
+    grow={true}
+    style={
+      Object {
+        "textAlign": "right",
+      }
+    }
+  >
+    <h4
+      className="title"
+    >
+      Load
+    </h4>
+    <h2
+      className="average"
+    >
+      4.05, 3.37, 3.12
+    </h2>
+  </EuiText>
+</EuiPanel>
+`;
+
+exports[`general metric 1`] = `
+<EuiPanel
+  grow={true}
+  hasShadow={false}
+  paddingSize="m"
+>
+  <EuiText
+    grow={true}
+    style={
+      Object {
+        "textAlign": "right",
+      }
+    }
+  >
+    <h4
+      className="title"
+    >
+      A metric
+    </h4>
+    <h2
+      className="average"
+    >
+      1.80
+    </h2>
+  </EuiText>
+</EuiPanel>
+`;
+
+exports[`millisecond metric 1`] = `
+<EuiPanel
+  grow={true}
+  hasShadow={false}
+  paddingSize="m"
+>
+  <EuiText
+    grow={true}
+    style={
+      Object {
+        "textAlign": "right",
+      }
+    }
+  >
+    <h4
+      className="title"
+    >
+      Response Time Max
+    </h4>
+    <h2
+      className="average"
+    >
+      1234.00 ms
+    </h2>
+  </EuiText>
+</EuiPanel>
+`;

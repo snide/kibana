@@ -24,6 +24,13 @@ import './status_page_metric';
 import './status_page.less';
 import { uiModules } from 'ui/modules';
 
+import StatusApp from './components/status_app';
+
+const app = uiModules.get('apps/status', []);
+app.directive('statusApp', function (reactDirective) {
+  return reactDirective(StatusApp);
+});
+
 
 const chrome = require('ui/chrome')
   .setRootTemplate(require('plugins/status_page/status_page.html'))

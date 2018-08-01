@@ -71,23 +71,32 @@ class StatusApp extends Component {
     // Extract the items needed to render each component
     const { metrics, statuses, serverState, name } = data;
 
-    return [
-      <ServerStatus
-        name={name}
-        serverState={serverState}
-      />,
-      <EuiSpacer />,
-      <MetricTiles metrics={metrics} />,
-      <EuiSpacer />,
-      <EuiText>
-        <h2>Status Breakdown</h2>
-      </EuiText>,
-      <StatusTable statuses={statuses} />,
-      <EuiSpacer />,
-      <EuiText textAlign="right">
-        Build { buildNum }, Commit SHA { buildSha }
-      </EuiText>
-    ];
+    return (
+      <div>
+        <ServerStatus
+          name={name}
+          serverState={serverState}
+        />
+
+        <EuiSpacer />
+
+        <MetricTiles metrics={metrics} />
+
+        <EuiSpacer />
+
+        <EuiText>
+          <h2>Status Breakdown</h2>
+        </EuiText>
+
+        <StatusTable statuses={statuses} />
+
+        <EuiSpacer />
+
+        <EuiText textAlign="right">
+          Build { buildNum }, Commit SHA { buildSha }
+        </EuiText>
+      </div>
+    );
   }
 }
 

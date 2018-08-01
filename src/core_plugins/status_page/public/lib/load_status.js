@@ -75,7 +75,13 @@ async function loadStatus() {
   let response;
 
   try {
-    response = await fetch(chrome.addBasePath('/api/status'), { method: 'get' });
+    response = await fetch(
+      chrome.addBasePath('/api/status'),
+      {
+        method: 'get',
+        credentials: 'same-origin'
+      }
+    );
   } catch (e) {
     // If the fetch failed to connect, display an error and bail.
     errorNotif = notify.error('Failed to request server status. Perhaps your server is down?');

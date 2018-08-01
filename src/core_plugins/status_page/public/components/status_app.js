@@ -41,30 +41,35 @@ class StatusApp extends Component {
     super();
     this.state = {
       loading: true,
+      fetchError: false,
       data: null
     };
   }
 
   componentDidMount = async function () {
-    try {
-      this.setState({
-        data: await loadStatus(),
-        loading: false
-      });
-    } catch (e) {
-      console.error(e);
+    const data = await loadStatus();
+
+    if (data) {
+      this.setState({ loading: false, data: data });
+    } else {
       this.setState({ fetchError: true, loading: false });
     }
   }
 
   render() {
     const { buildNum, buildSha } = this.props;
-    const { loading, data } = this.state;
+    const { loading, fetchError, data } = this.state;
 
     // If we're still loading, return early with a spinner
     if (loading) {
       return (
         <EuiLoadingSpinner size="l" />
+      );
+    }
+
+    if (fetchError) {
+      return (
+        <EuiText color="danger">An error occurred loading the status</EuiText>
       );
     }
 

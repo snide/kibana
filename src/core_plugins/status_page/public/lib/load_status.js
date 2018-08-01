@@ -20,6 +20,10 @@
 import _ from 'lodash';
 
 import chrome from 'ui/chrome';
+import { notify } from 'ui/notify';
+
+// Module-level error returned by notify.error
+let errorNotif;
 
 /*
 Returns an object of any keys that should be included for metrics.
@@ -62,12 +66,26 @@ function formatMetrics(data) {
 }
 
 async function loadStatus() {
-  const response = await fetch(chrome.addBasePath('/api/status'), {
-    method: 'get'
-  });
+  // Clear any existing error banner.
+  if (errorNotif) {
+    errorNotif.clear();
+    errorNotif = null;
+  }
+
+  let response;
+
+  try {
+    response = await fetch(chrome.addBasePath('/api/status'), { method: 'get' });
+  } catch (e) {
+    // If the fetch failed to connect, display an error and bail.
+    errorNotif = notify.error('Failed to request server status. Perhaps your server is down?');
+    return;
+  }
 
   if (response.status >= 400) {
-    throw new Error(`Request failed with status code: ${response.status}`);
+    // If the server does not respond with a successful status, display an error and bail.
+    errorNotif = notify.error(`Failed to request server status with status code ${response.status}`);
+    return;
   }
 
   const data = await response.json();

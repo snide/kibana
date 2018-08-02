@@ -101,7 +101,7 @@ class StatusApp extends Component {
             <EuiFlexGroup alignItems="center" justifyContent="spaceBetween">
               <EuiFlexItem grow={false}>
                 <EuiTitle size="s">
-                  <h2>Status breakdown</h2>
+                  <h2>Plugin status</h2>
                 </EuiTitle>
               </EuiFlexItem>
               <EuiFlexItem grow={false}>

@@ -20,17 +20,22 @@
 import React, { Component } from 'react';
 import {
   EuiBasicTable,
-  EuiHealth,
+  EuiIcon,
 } from '@elastic/eui';
 
 class StatusTable extends Component {
   static columns = [{
+    field: 'state',
+    name: '',
+    render: state => <EuiIcon type="dot" ariaabel="" color={state.uiColor} />,
+    width: '32px'
+  }, {
     field: 'id',
     name: 'ID',
   }, {
     field: 'state',
     name: 'Status',
-    render: state => <EuiHealth color={state.uiColor}>{ state.message }</EuiHealth>
+    render: state => <span>{ state.message }</span>
   }];
 
   static getRowProps = ({ state }) => {

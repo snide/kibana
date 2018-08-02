@@ -21,10 +21,9 @@ import formatNumber from '../lib/format_number';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-  EuiFlexGroup,
+  EuiFlexGrid,
   EuiFlexItem,
-  EuiPanel,
-  EuiText
+  EuiCard,
 } from '@elastic/eui';
 
 const MetricPropType = PropTypes.shape({
@@ -57,12 +56,11 @@ export class MetricTile extends Component {
     const { name } = this.props.metric;
 
     return (
-      <EuiPanel>
-        <EuiText textAlign="right">
-          <h4 className="title">{ name }</h4>
-          <h2 className="average">{ this.formattedMetric() }</h2>
-        </EuiText>
-      </EuiPanel>
+      <EuiCard
+        layout="horizontal"
+        title={this.formattedMetric()}
+        description={name}
+      />
     );
   }
 }
@@ -73,21 +71,15 @@ Wrapper component that simply maps each metric to MetricTile inside a FlexGroup
 const MetricTiles = ({
   metrics
 }) => (
-  <EuiFlexGroup
-    style={{ width: '100%' }}
-    wrap
-  >
+  <EuiFlexGrid columns={3}>
     {
       metrics.map(metric => (
-        <EuiFlexItem
-          key={metric.name}
-          style={{ minWidth: 'calc(33% - 24px)' }}
-        >
+        <EuiFlexItem key={metric.name}>
           <MetricTile metric={metric} />
         </EuiFlexItem>
       ))
     }
-  </EuiFlexGroup>
+  </EuiFlexGrid>
 );
 
 MetricTiles.propTypes = {

@@ -24,7 +24,13 @@ import PropTypes from 'prop-types';
 import {
   EuiLoadingSpinner,
   EuiText,
-  EuiSpacer
+  EuiTitle,
+  EuiPage,
+  EuiPageBody,
+  EuiPageContent,
+  EuiSpacer,
+  EuiFlexGroup,
+  EuiFlexItem,
 } from '@elastic/eui';
 
 import MetricTiles from './metric_tiles';
@@ -77,30 +83,53 @@ class StatusApp extends Component {
     const { metrics, statuses, serverState, name } = data;
 
     return (
-      <div>
-        <ServerStatus
-          name={name}
-          serverState={serverState}
-        />
+      <EuiPage className="stsPage">
+        <EuiPageBody restrictWidth>
 
-        <EuiSpacer />
+          <ServerStatus
+            name={name}
+            serverState={serverState}
+          />
 
-        <MetricTiles metrics={metrics} />
+          <EuiSpacer />
 
-        <EuiSpacer />
+          <MetricTiles metrics={metrics} />
 
-        <EuiText>
-          <h2>Status Breakdown</h2>
-        </EuiText>
+          <EuiSpacer />
 
-        <StatusTable statuses={statuses} />
+          <EuiPageContent>
+            <EuiFlexGroup alignItems="center" justifyContent="spaceBetween">
+              <EuiFlexItem grow={false}>
+                <EuiTitle size="s">
+                  <h2>Status breakdown</h2>
+                </EuiTitle>
+              </EuiFlexItem>
+              <EuiFlexItem grow={false}>
+                <EuiFlexGroup>
+                  <EuiFlexItem grow={false}>
+                    <EuiText size="s">
+                      <p>
+                        BUILD <strong>{ buildNum }</strong>
+                      </p>
+                    </EuiText>
+                  </EuiFlexItem>
+                  <EuiFlexItem grow={false}>
+                    <EuiText size="s">
+                      <p>
+                        COMMIT <strong>{ buildSha }</strong>
+                      </p>
+                    </EuiText>
+                  </EuiFlexItem>
+                </EuiFlexGroup>
+              </EuiFlexItem>
+            </EuiFlexGroup>
 
-        <EuiSpacer />
+            <EuiSpacer />
 
-        <EuiText textAlign="right">
-          Build { buildNum }, Commit SHA { buildSha }
-        </EuiText>
-      </div>
+            <StatusTable statuses={statuses} />
+          </EuiPageContent>
+        </EuiPageBody>
+      </EuiPage>
     );
   }
 }

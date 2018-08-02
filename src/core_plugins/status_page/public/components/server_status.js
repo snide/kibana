@@ -20,22 +20,38 @@
 import React from 'react';
 import {
   EuiText,
-  EuiTextColor,
+  EuiFlexGroup,
+  EuiFlexItem,
+  EuiTitle,
+  EuiBadge,
 } from '@elastic/eui';
 
 const ServerState = ({
   name,
   serverState
 }) => (
-  <EuiText>
-    <h2>
-      {'Status: '}
-      <EuiTextColor color={serverState.uiColor}>
-        { serverState.title }
-      </EuiTextColor>
-      <span style={{ float: 'right' }}>{ name }</span>
-    </h2>
-  </EuiText>
+  <EuiFlexGroup
+    alignItems="center"
+    justifyContent="spaceBetween"
+  >
+    <EuiFlexItem grow={false}>
+      <EuiTitle>
+        <h2>
+          {'Kibana status is '}
+          <EuiBadge color={serverState.uiColor}>
+            {serverState.title }
+          </EuiBadge>
+        </h2>
+      </EuiTitle>
+    </EuiFlexItem>
+    <EuiFlexItem grow={false}>
+      <EuiText>
+        <p>
+          {name}
+        </p>
+      </EuiText>
+    </EuiFlexItem>
+  </EuiFlexGroup>
 );
 
 export default ServerState;

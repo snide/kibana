@@ -35,11 +35,11 @@ function formatMetrics(data) {
 
   return [
     {
-      name: 'Heap Total',
+      name: 'Heap total',
       value: _.get(data.metrics, 'process.memory.heap.size_limit'),
       type: 'byte'
     }, {
-      name: 'Heap Used',
+      name: 'Heap used',
       value: _.get(data.metrics, 'process.memory.heap.used_in_bytes'),
       type: 'byte'
     }, {
@@ -51,15 +51,15 @@ function formatMetrics(data) {
       ],
       type: 'float'
     }, {
-      name: 'Response Time Avg',
+      name: 'Response time avg',
       value: _.get(data.metrics, 'response_times.avg_in_millis'),
       type: 'ms'
     }, {
-      name: 'Response Time Max',
+      name: 'Response time max',
       value: _.get(data.metrics, 'response_times.max_in_millis'),
       type: 'ms'
     }, {
-      name: 'Requests Per Second',
+      name: 'Requests per second',
       value: _.get(data.metrics, 'requests.total') * 1000 / _.get(data.metrics, 'collection_interval_in_millis')
     }
   ];

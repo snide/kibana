@@ -825,6 +825,14 @@ export function getUiSettingDefaults() {
         },
       }),
     },
+    'theme:darkMode': {
+      name: i18n.translate('kbn.advancedSettings.darkModeTitle', {
+        defaultMessage: 'Dark mode',
+      }),
+      value: false,
+      description: i18n.translate('kbn.advancedSettings.darkModeText', {
+        defaultMessage: `Enable a dark mode for the Kibana UI. A page refresh is required for the setting to be applied.`,
+      }),
     },
     'filters:pinnedByDefault': {
       name: i18n.translate('kbn.advancedSettings.pinFiltersTitle', {

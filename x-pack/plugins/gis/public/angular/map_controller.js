@@ -8,7 +8,6 @@ import chrome from 'ui/chrome';
 import React from 'react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { uiModules } from 'ui/modules';
-import { applyTheme } from 'ui/theme';
 import { timefilter } from 'ui/timefilter';
 import { Provider } from 'react-redux';
 import { getStore } from '../store/store';
@@ -20,12 +19,11 @@ import {
   setGoto,
   replaceLayerList,
 } from '../actions/store_actions';
-import { getIsDarkTheme, updateFlyout, FLYOUT_STATE } from '../store/ui';
+import { updateFlyout, FLYOUT_STATE } from '../store/ui';
 import { Inspector } from 'ui/inspector';
 import { inspectorAdapters } from '../kibana_services';
 import { SavedObjectSaveModal } from 'ui/saved_objects/components/saved_object_save_modal';
 import { showSaveModal } from 'ui/saved_objects/show_saved_object_save_modal';
-import { showOptionsPopover } from '../components/top_nav/show_options_popover';
 import { toastNotifications } from 'ui/notify';
 
 const REACT_ANCHOR_DOM_ELEMENT_ID = 'react-gis-root';
@@ -35,7 +33,6 @@ const app = uiModules.get('app/gis', []);
 app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
 
   const savedMap = $scope.map = $route.current.locals.map;
-  let isDarkTheme;
   let unsubscribe;
 
   inspectorAdapters.requests.reset();
@@ -45,11 +42,6 @@ app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
     // clear old UI state
     store.dispatch(setSelectedLayer(null));
     store.dispatch(updateFlyout(FLYOUT_STATE.NONE));
-
-    handleStoreChanges(store);
-    unsubscribe = store.subscribe(() => {
-      handleStoreChanges(store);
-    });
 
     // sync store with savedMap mapState
     if (savedMap.mapStateJSON) {
@@ -75,14 +67,6 @@ app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
       </Provider>,
       root);
   });
-
-  function handleStoreChanges(store) {
-    // theme changes must triggered in digest cycle because top nav is still angular
-    if (isDarkTheme !== getIsDarkTheme(store.getState())) {
-      isDarkTheme = getIsDarkTheme(store.getState());
-      updateTheme();
-    }
-  }
 
   $scope.$on('$destroy', () => {
     if (unsubscribe) {
@@ -144,13 +128,6 @@ app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
       Inspector.open(inspectorAdapters, {});
     }
   }, {
-    key: 'options',
-    description: 'Options',
-    testId: 'optionsButton',
-    run: async (menuItem, navController, anchorElement) => {
-      showOptionsPopover(anchorElement);
-    }
-  }, {
     key: 'save',
     description: 'Save map',
     testId: 'mapSaveButton',
@@ -186,22 +163,4 @@ app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
   }];
   timefilter.enableTimeRangeSelector();
   timefilter.enableAutoRefreshSelector();
-
-  function updateTheme() {
-    $scope.$evalAsync(() => {
-      isDarkTheme ? setDarkTheme() : setLightTheme();
-    });
-  }
-
-  function setDarkTheme() {
-    chrome.removeApplicationClass(['theme-light']);
-    chrome.addApplicationClass('theme-dark');
-    applyTheme('dark');
-  }
-
-  function setLightTheme() {
-    chrome.removeApplicationClass(['theme-dark']);
-    chrome.addApplicationClass('theme-light');
-    applyTheme('light');
-  }
 });

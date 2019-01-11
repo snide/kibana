@@ -74,6 +74,7 @@ export function uiRenderMixin(kbnServer, server, config) {
       const dllBundlePath = `${basePath}/built_assets/dlls`;
       const styleSheetPaths = [
         `${dllBundlePath}/vendors.style.dll.css`,
+        `${regularBundlePath}/${darkMode ? 'dark' : 'light'}_theme.style.css`,
         `${regularBundlePath}/commons.style.css`,
         `${regularBundlePath}/${app.getId()}.style.css`,
         ...kbnServer.uiExports.styleSheetPaths

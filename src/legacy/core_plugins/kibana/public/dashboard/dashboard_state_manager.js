@@ -20,6 +20,7 @@
 import { i18n } from '@kbn/i18n';
 import _ from 'lodash';
 import moment from 'moment';
+import chrome from 'ui/chrome';
 
 import { DashboardViewMode } from './dashboard_view_mode';
 import { FilterUtils } from './lib/filter_utils';
@@ -370,12 +371,7 @@ export class DashboardStateManager {
   }
 
   getDarkTheme() {
-    return this.appState.options.darkTheme;
-  }
-
-  setDarkTheme(darkTheme) {
-    this.appState.options.darkTheme = darkTheme;
-    this.saveState();
+    return chrome.getUiSettingsClient().get('theme:darkMode');
   }
 
   getTimeRestore() {

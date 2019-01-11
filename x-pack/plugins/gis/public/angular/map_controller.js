@@ -18,34 +18,67 @@ import {
   setRefreshConfig,
   setGoto,
   replaceLayerList,
+  setQuery,
 } from '../actions/store_actions';
 import { updateFlyout, FLYOUT_STATE } from '../store/ui';
+import { getUniqueIndexPatternIds } from '../selectors/map_selectors';
 import { Inspector } from 'ui/inspector';
-import { inspectorAdapters } from '../kibana_services';
+import { inspectorAdapters, indexPatternService } from '../kibana_services';
 import { SavedObjectSaveModal } from 'ui/saved_objects/components/saved_object_save_modal';
 import { showSaveModal } from 'ui/saved_objects/show_saved_object_save_modal';
 import { toastNotifications } from 'ui/notify';
 
 const REACT_ANCHOR_DOM_ELEMENT_ID = 'react-gis-root';
+const DEFAULT_QUERY_LANGUAGE = 'kuery';
 
 const app = uiModules.get('app/gis', []);
 
-app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
+app.controller('GisMapController', ($scope, $route, config, kbnUrl, localStorage, AppState) => {
 
   const savedMap = $scope.map = $route.current.locals.map;
   let unsubscribe;
 
   inspectorAdapters.requests.reset();
 
-  getStore().then(store => {
+  const $state = new AppState();
+  $scope.$listen($state, 'fetch_with_changes', function (diff) {
+    if (diff.includes('query')) {
+      $scope.updateQueryAndDispatch($state.query);
+    }
+  });
+  $scope.query = {};
+  $scope.indexPatterns = [];
+  $scope.updateQueryAndDispatch = function (newQuery) {
+    $scope.query = newQuery;
+    getStore().then(store => {
+      // ignore outdated query
+      if ($scope.query !== newQuery) {
+        return;
+      }
 
+      store.dispatch(setQuery({ query: $scope.query }));
+
+      // update appState
+      $state.query = $scope.query;
+      $state.save();
+    });
+  };
+
+  getStore().then(store => {
     // clear old UI state
     store.dispatch(setSelectedLayer(null));
     store.dispatch(updateFlyout(FLYOUT_STATE.NONE));
 
+    handleStoreChanges(store);
+    unsubscribe = store.subscribe(() => {
+      handleStoreChanges(store);
+    });
+
     // sync store with savedMap mapState
+    let queryFromSavedObject;
     if (savedMap.mapStateJSON) {
       const mapState = JSON.parse(savedMap.mapStateJSON);
+      queryFromSavedObject = mapState.query;
       const timeFilters = mapState.timeFilters ? mapState.timeFilters : timefilter.getTime();
       store.dispatch(setTimeFilters(timeFilters));
       store.dispatch(setGoto({
@@ -60,6 +93,18 @@ app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
     const layerList = savedMap.layerListJSON ? JSON.parse(savedMap.layerListJSON) : [];
     store.dispatch(replaceLayerList(layerList));
 
+    // Initialize query, syncing appState and store
+    if ($state.query) {
+      $scope.updateQueryAndDispatch($state.query);
+    } else if (queryFromSavedObject) {
+      $scope.updateQueryAndDispatch(queryFromSavedObject);
+    } else {
+      $scope.updateQueryAndDispatch({
+        query: '',
+        language: localStorage.get('kibana.userQueryLanguage') || DEFAULT_QUERY_LANGUAGE
+      });
+    }
+
     const root = document.getElementById(REACT_ANCHOR_DOM_ELEMENT_ID);
     render(
       <Provider store={store}>
@@ -67,6 +112,36 @@ app.controller('GisMapController', ($scope, $route, config, kbnUrl) => {
       </Provider>,
       root);
   });
+
+  let prevIndexPatternIds;
+  async function updateIndexPatterns(nextIndexPatternIds) {
+    const indexPatterns = [];
+    const getIndexPatternPromises = nextIndexPatternIds.map(async (indexPatternId) => {
+      try {
+        const indexPattern = await indexPatternService.get(indexPatternId);
+        indexPatterns.push(indexPattern);
+      } catch(err) {
+        // unable to fetch index pattern
+      }
+    });
+
+    await Promise.all(getIndexPatternPromises);
+    // ignore outdated results
+    if (prevIndexPatternIds !== nextIndexPatternIds) {
+      return;
+    }
+    $scope.indexPatterns = indexPatterns;
+  }
+
+  function handleStoreChanges(store) {
+    const state = store.getState();
+
+    const nextIndexPatternIds = getUniqueIndexPatternIds(state);
+    if (nextIndexPatternIds !== prevIndexPatternIds) {
+      prevIndexPatternIds = nextIndexPatternIds;
+      updateIndexPatterns(nextIndexPatternIds);
+    }
+  }
 
   $scope.$on('$destroy', () => {
     if (unsubscribe) {

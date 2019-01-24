@@ -1,7 +1,5 @@
-@import '../../lib/eui.scss';
-
-// Kibana Canvas - Default styles for Markdown element
-// 
+// Default styles for Markdown element
+//
 // 1. Links
 // 2. Headings
 // 3. Images
@@ -12,38 +10,38 @@
 // 8. Code blocks
 
 // Functions
-// Note: The inlined base font size is set in common/functions/font.js. It should match $canvasMdFontSize.
-$canvasDefaultFontSize: 14px;
+// Note: The inlined base font size is set in common/functions/font.js. It should match $kbnMdFontSize.
+$kbnDefaultFontSize: 14px;
 
 @function canvasToEm($size) {
-  @return #{$size / $canvasDefaultFontSize}em;
+  @return #{$size / $kbnDefaultFontSize}em;
 }
 
-.canvas .canvasMarkdown {
+.kbnMarkdown__body {
 
   // Font size variables
-  $canvasMarkdownFontSizeS: canvasToEm(12px);
-  $canvasMarkdownFontSize: canvasToEm(14px);
-  $canvasMarkdownFontSizeL: canvasToEm(20px);
-  $canvasMarkdownFontSizeXL: canvasToEm(28px);
-  $canvasMarkdownFontSizeXXL: canvasToEm(36px);
+  $kbnMarkdownFontSizeS: canvasToEm(12px);
+  $kbnMarkdownFontSize: canvasToEm(14px);
+  $kbnMarkdownFontSizeL: canvasToEm(20px);
+  $kbnMarkdownFontSizeXL: canvasToEm(28px);
+  $kbnMarkdownFontSizeXXL: canvasToEm(36px);
 
   // Spacing variables
-  $canvasMarkdownSizeL: canvasToEm(24px);
-  $canvasMarkdownSize: canvasToEm(16px);
-  $canvasMarkdownSizeS: canvasToEm(12px);
-  $canvasMarkdownSizeXS: canvasToEm(8px);
-  $canvasMarkdownSizeXXS: canvasToEm(4px);
+  $kbnMarkdownSizeL: canvasToEm(24px);
+  $kbnMarkdownSize: canvasToEm(16px);
+  $kbnMarkdownSizeS: canvasToEm(12px);
+  $kbnMarkdownSizeXS: canvasToEm(8px);
+  $kbnMarkdownSizeXXS: canvasToEm(4px);
 
   // Grayscale variables
-  $canvasMarkdownAlphaLightestShade: rgba(0,0,0,.05);
-  $canvasMarkdownAlphaLightShade: rgba(0,0,0,.15);
-  $canvasMarkdownAlphaDarkShade: rgba(0,0,0,.65);
+  $kbnMarkdownAlphaLightestShade: rgba(0,0,0,.05);
+  $kbnMarkdownAlphaLightShade: rgba(0,0,0,.15);
+  $kbnMarkdownAlphaDarkShade: rgba(0,0,0,.65);
 
   > *:first-child {
     margin-top: 0 !important;
   }
-  
+
   > *:last-child {
     margin-bottom: 0 !important;
   }
@@ -56,10 +54,10 @@ $canvasDefaultFontSize: 14px;
   table,
   pre {
     margin-top: 0;
-    margin-bottom: $canvasMarkdownSize;
+    margin-bottom: $kbnMarkdownSize;
     line-height: 1.5em;
   }
-  
+
   strong {
     font-weight: 600;
   }
@@ -69,11 +67,11 @@ $canvasDefaultFontSize: 14px;
     color: inherit;
     text-decoration: underline;
   }
-  
+
   a:hover {
     text-decoration: underline dotted;
   }
-  
+
   a:active,
   a:hover {
     outline-width: 0;
@@ -92,41 +90,41 @@ $canvasDefaultFontSize: 14px;
   h5,
   h6 {
     margin-top: 0;
-    margin-bottom: $canvasMarkdownSizeXS;
+    margin-bottom: $kbnMarkdownSizeXS;
   }
-  
+
   h1 {
-    font-size: $canvasMarkdownFontSizeXXL;
+    font-size: $kbnMarkdownFontSizeXXL;
     line-height: 1.333333em;
     font-weight: 300;
   }
-  
+
   h2 {
-    font-size: $canvasMarkdownFontSizeXL;
+    font-size: $kbnMarkdownFontSizeXL;
     line-height: 1.428571em;
     font-weight: 300;
   }
-  
+
   h3 {
-    font-size: $canvasMarkdownFontSizeL;
+    font-size: $kbnMarkdownFontSizeL;
     line-height: 1.6em;
     font-weight: 600;
   }
-  
+
   h4 {
-    font-size: $canvasMarkdownSize;
+    font-size: $kbnMarkdownSize;
     line-height: 1.5em;
     font-weight: 600;
   }
-  
+
   h5 {
-    font-size: $canvasMarkdownFontSize;
+    font-size: $kbnMarkdownFontSize;
     line-height: 1.142857em;
     font-weight: 700;
   }
-  
+
   h6 {
-    font-size: $canvasMarkdownFontSizeS;
+    font-size: $kbnMarkdownFontSizeS;
     line-height: 1.333333em;
     font-weight: 700;
     text-transform: uppercase;
@@ -138,11 +136,11 @@ $canvasDefaultFontSize: 14px;
     box-sizing: content-box;
     border-style: none;
   }
-  
+
   // 4. Blockquotes
   blockquote {
     padding: 0 1em;
-    border-left: $canvasMarkdownSizeXXS solid $canvasMarkdownAlphaLightShade;
+    border-left: $kbnMarkdownSizeXXS solid $kbnMarkdownAlphaLightShade;
   }
 
   // 5. Horizontal rules
@@ -151,37 +149,37 @@ $canvasDefaultFontSize: 14px;
     background: transparent;
     height: 2px;
     padding: 0;
-    margin: $canvasMarkdownSizeL 0;
-    background-color: $canvasMarkdownAlphaLightShade;
+    margin: $kbnMarkdownSizeL 0;
+    background-color: $kbnMarkdownAlphaLightShade;
     border: 0;
   }
-  
+
   hr::before {
     display: table;
     content: "";
   }
-  
+
   hr::after {
     display: table;
     clear: both;
     content: "";
   }
-  
+
   // 6. Lists
   ul,
   ol {
     padding-left: 0;
     margin-top: 0;
-    margin-bottom: $canvasMarkdownSize;
+    margin-bottom: $kbnMarkdownSize;
   }
-  
+
   ul {
     list-style-type: disc;
   }
   ol {
     list-style-type: decimal;
   }
-  
+
   ul ul {
     list-style-type: circle;
   }
@@ -190,23 +188,23 @@ $canvasDefaultFontSize: 14px;
   ul ol {
     list-style-type: lower-roman;
   }
-  
+
   ul ul ol,
   ul ol ol,
   ol ul ol,
   ol ol ol {
     list-style-type: lower-alpha;
   }
-  
+
   dd {
     margin-left: 0;
   }
-  
+
   ul,
   ol {
-    padding-left: $canvasMarkdownSizeL;
+    padding-left: $kbnMarkdownSizeL;
   }
-  
+
   ul ul,
   ul ol,
   ol ol,
@@ -214,77 +212,77 @@ $canvasDefaultFontSize: 14px;
     margin-top: 0;
     margin-bottom: 0;
   }
-  
+
   li > p {
-    margin-bottom: $canvasMarkdownSizeXS;
+    margin-bottom: $kbnMarkdownSizeXS;
   }
-  
+
   li + li {
-    margin-top: $canvasMarkdownSizeXXS;
+    margin-top: $kbnMarkdownSizeXXS;
   }
-  
+
   // 7. Tables
   table {
     display: block;
     width: 100%;
     overflow: auto;
-    border-left: 1px solid $canvasMarkdownAlphaLightShade;
+    border-left: 1px solid $kbnMarkdownAlphaLightShade;
     border-spacing: 0;
     border-collapse: collapse;
   }
-  
+
   td,
   th {
     padding: 0;
   }
-  
+
   table th,
   table td {
-    padding: $canvasMarkdownSizeXXS $canvasMarkdownSizeS;
-    border-top: 1px solid $canvasMarkdownAlphaLightShade;
-    border-bottom: 1px solid $canvasMarkdownAlphaLightShade;
-  
+    padding: $kbnMarkdownSizeXXS $kbnMarkdownSizeS;
+    border-top: 1px solid $kbnMarkdownAlphaLightShade;
+    border-bottom: 1px solid $kbnMarkdownAlphaLightShade;
+
     &:last-child {
-      border-right: 1px solid $canvasMarkdownAlphaLightShade;
+      border-right: 1px solid $kbnMarkdownAlphaLightShade;
     }
   }
-  
+
   table tr {
     background-color: transparent;
-    border-top: 1px solid $canvasMarkdownAlphaLightShade;
+    border-top: 1px solid $kbnMarkdownAlphaLightShade;
   }
-  
+
   // 8. Code blocks
   code,
   pre {
-    margin-bottom: $canvasMarkdownSizeXS;
+    margin-bottom: $kbnMarkdownSizeXS;
     font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
-    font-size: $canvasMarkdownFontSizeS;
+    font-size: $kbnMarkdownFontSizeS;
   }
 
   code {
-    padding: $canvasMarkdownSizeXXS 0;
+    padding: $kbnMarkdownSizeXXS 0;
     margin: 0;
-    background-color: $canvasMarkdownAlphaLightestShade;
-    border-radius: $canvasMarkdownSizeXXS;
+    background-color: $kbnMarkdownAlphaLightestShade;
+    border-radius: $kbnMarkdownSizeXXS;
   }
-  
+
   code::before,
   code::after {
     letter-spacing: -0.2em;
     content: "\00a0";
   }
-  
+
   pre {
-    padding: $canvasMarkdownSize;
+    padding: $kbnMarkdownSize;
     overflow: auto;
-    font-size: $canvasMarkdownFontSizeS;
+    font-size: $kbnMarkdownFontSizeS;
     line-height: 1.333333em;
-    background-color: $canvasMarkdownAlphaLightestShade;
-    border-radius: $canvasMarkdownSizeXXS;
+    background-color: $kbnMarkdownAlphaLightestShade;
+    border-radius: $kbnMarkdownSizeXXS;
     word-wrap: normal;
   }
-  
+
   pre code {
     display: inline;
     max-width: auto;
@@ -296,7 +294,7 @@ $canvasDefaultFontSize: 14px;
     background-color: transparent;
     border: 0;
   }
-  
+
   pre code::before,
   pre code::after {
     content: normal;

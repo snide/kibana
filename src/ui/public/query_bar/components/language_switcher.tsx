@@ -75,7 +75,7 @@ export class QueryLanguageSwitcher extends Component<Props, State> {
           />
         </EuiPopoverTitle>
         <div style={{ width: '350px' }}>
-          <EuiText>
+          <EuiText size="s">
             <p>
               <FormattedMessage
                 id="common.ui.queryBar.syntaxOptionsDescription"

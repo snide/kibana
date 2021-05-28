@@ -117,8 +117,8 @@ export const MlPopover = React.memo(() => {
         button={
           <EuiButtonEmpty
             data-test-subj="integrations-button"
-            iconType="arrowDown"
-            iconSide="right"
+            iconType="gear"
+            iconSide="left"
             onClick={() => setIsPopoverOpen(!isPopoverOpen)}
           >
             {i18n.ML_JOB_SETTINGS}
@@ -140,8 +140,8 @@ export const MlPopover = React.memo(() => {
         button={
           <EuiButtonEmpty
             data-test-subj="integrations-button"
-            iconType="arrowDown"
-            iconSide="right"
+            iconType="gear"
+            iconSide="left"
             onClick={() => {
               setIsPopoverOpen(!isPopoverOpen);
               dispatch({ type: 'refresh' });
